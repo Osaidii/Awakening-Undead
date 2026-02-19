@@ -1,6 +1,6 @@
 class_name interactable extends Node
 
-@onready var interaction_tut: Label = %"Interaction Tutorial"
+@export var interaction_tut: Label
 
 var parent
 

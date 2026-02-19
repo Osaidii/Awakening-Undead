@@ -155,9 +155,15 @@ func damage_target(result: Dictionary) -> void:
 			target.take_damage(weapon.single_damage * 2)
 		else:
 			target.take_damage(weapon.single_damage)
-		var blood_effect := BLOOD_SPLATER.instantiate()
-		get_tree().root.add_child(blood_effect)
-		blood_effect.global_position = result.position
+		var area = collider.get_parent()
+		var bone = area.get_parent()
+		var skeleton = bone.get_parent()
+		var armature = skeleton.get_parent()
+		var zombie = armature.get_parent()
+		if zombie.is_alive:
+			var blood_effect := BLOOD_SPLATER.instantiate()
+			get_tree().root.add_child(blood_effect)
+			blood_effect.global_position = result.position
 
 func remove_bullets() -> void:
 	magazine_count -= 1

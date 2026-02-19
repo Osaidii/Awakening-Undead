@@ -48,14 +48,15 @@ mesh = SubResource("ArrayMesh_0sncv")
 skeleton = NodePath("")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0723917, -3.65735)
-light_color = Color(0.960218, 0.974526, 0.822146, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0377456, -0.0498505, -3.62408)
+light_color = Color(0.960975, 1, 0.524647, 1)
 light_energy = 3.0
 light_indirect_energy = 3.0
 light_volumetric_fog_energy = 3.0
 light_size = 1.0
-omni_range = 10.0
+omni_range = 15.0
 omni_attenuation = 2.0
+omni_shadow_mode = 0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://m0ia3gpcr5l"]
-
-[ext_resource type="PackedScene" uid="uid://pw8igtxly80b" path="res://assets/the zombie/untitled.glb" id="1_gh653"]
-
-[node name="untitled" instance=ExtResource("1_gh653")]

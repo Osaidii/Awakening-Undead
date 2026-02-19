@@ -34,6 +34,27 @@ extends CharacterBody3D
 @onready var health_underlay: ProgressBar = $HUD/Health/HealthUnderlay
 @onready var stamina_regen_wait: Timer = $"HUD/Stamina/Stamina Regen Wait"
 @onready var gate_anims: AnimationPlayer = $"../Navigation/Wall/Gate/AnimationPlayer"
+@onready var spawn_points: Node3D = $"../Spawn Points"
+@onready var cutscenes: AnimationPlayer = $"../Cutscenes"
+@onready var gate_clang: AudioStreamPlayer3D = $"../Gate Clang"
+@onready var middle: ColorRect = $HUD/Middle
+@onready var up: ColorRect = $HUD/Up
+@onready var down: ColorRect = $HUD/Down
+@onready var ui: Control = $UI
+@onready var boxes: Node3D = $"../Navigation/Boxes"
+
+const AK_47 = preload("res://weapon_resource/ak47.tres")
+const AUG = preload("res://weapon_resource/aug.tres")
+const FAMAS = preload("res://weapon_resource/famas.tres")
+const FIVE_SEVEN = preload("res://weapon_resource/five seven.tres")
+const GLOCK_18 = preload("res://weapon_resource/glock_18.tres")
+const M_4A_1 = preload("res://weapon_resource/m4a1.tres")
+const MAC_10 = preload("res://weapon_resource/mac10.tres")
+const MP_5 = preload("res://weapon_resource/mp5.tres")
+const P_90 = preload("res://weapon_resource/p90.tres")
+const SCAR_H = preload("res://weapon_resource/scar-h.tres")
+const TEC_9 = preload("res://weapon_resource/tec 9.tres")
+const UMP_45 = preload("res://weapon_resource/ump 45.tres")
 
 var speed := 0.0
 var time_bob := 0.0
@@ -49,9 +70,9 @@ var current_stamina := 0
 var stamina_drain := 0.1
 var stamina_regen := 75
 var is_regening := false
-var wave_num := 1
 
 func _ready() -> void:
+	Variables.is_pauseable = false
 	position = Vector3(16, -5, 5)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	crouch_check.add_exception($".")
@@ -88,6 +109,29 @@ func _physics_process(delta: float) -> void:
 		is_dead = true
 		die()
 	
+	if Input.is_action_pressed("temp"):
+		cutscenes.stop()
+		position = Vector3(8.108, -5.086, 5.8)
+		rotation = Vector3(0, 90, 0)
+		can_control = true
+		up.visible = false
+		down.visible = false
+		middle.visible = false
+		weapons.visible = true
+		ui.visible = true
+		head.rotation = Vector3(0, 0 ,0)
+		camera.rotation = Vector3(0, 0 ,0)
+		gameplay()
+	
+	if Variables.reload:
+		weapons.reload()
+	
+	Variables.player_pos = global_position
+	
+	if Variables.player_hit:
+		take_damage(Variables.DAMAGE)
+		hit(Variables.dir)
+	
 	# Handle Movement
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, -input_dir.y)).normalized()
@@ -117,15 +161,17 @@ func _physics_process(delta: float) -> void:
 	
 	add_gravity(delta)
 	
-	weapon_set()
-	
 	camera_tilt(delta)
+	
+	get_ammo()
 	
 	change_speed(delta)
 	
 	air_procces()
 	
 	interact_cast()
+	
+	out_of_ammo()
 	
 	move_and_slide()
 
@@ -244,9 +290,10 @@ func hit(dir) -> void:
 	if is_dead: return
 	dir.y *= 0 
 	velocity += dir * 10
+	Variables.player_hit = false
 
 func die() -> void:
-	animations.play("die")
+	cutscenes.play("die")
 
 func take_damage(damage) -> void:
 	current_health -= damage
@@ -260,58 +307,108 @@ func take_damage(damage) -> void:
 func _on_stamina_regen_wait_timeout() -> void:
 	is_regening = true
 
-func weapon_set() -> void:
-	if wave_num == 1 and !weapons.weapon == load("res://weapon_resource/glock_18.tres"):
-		weapons.weapon = load("res://weapon_resource/glock_18.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 12
-	if wave_num == 2 and !weapons.weapon == load("res://weapon_resource/five seven.tres"):
-		weapons.weapon = load("res://weapon_resource/five seven.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 15
-	if wave_num == 3 and !weapons.weapon == load("res://weapon_resource/tec 9.tres"):
-		weapons.weapon = load("res://weapon_resource/tec 9.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 16
-	if wave_num == 4 and !weapons.weapon == load("res://weapon_resource/mac10.tres"):
-		weapons.weapon = load("res://weapon_resource/mac10.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 17
-	if wave_num == 5 and !weapons.weapon == load("res://weapon_resource/ump 45.tres"):
-		weapons.weapon = load("res://weapon_resource/ump 45.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 22
-	if wave_num == 6 and !weapons.weapon == load("res://weapon_resource/mp5.tres"):
-		weapons.weapon = load("res://weapon_resource/mp5.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 24
-	if wave_num == 7 and !weapons.weapon == load("res://weapon_resource/p90.tres"):
-		weapons.weapon = load("res://weapon_resource/p90.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 26
-	if wave_num == 8 and !weapons.weapon == load("res://weapon_resource/famas.tres"):
-		weapons.weapon = load("res://weapon_resource/famas.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 32
-	if wave_num == 9 and !weapons.weapon == load("res://weapon_resource/ak47.tres"):
-		weapons.weapon = load("res://weapon_resource/ak47.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 36
-	if wave_num == 10 and !weapons.weapon == load("res://weapon_resource/aug.tres"):
-		weapons.weapon = load("res://weapon_resource/aug.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 41
-	if wave_num == 11 and !weapons.weapon == load("res://weapon_resource/scar-h.tres"):
-		weapons.weapon = load("res://weapon_resource/scar-h.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 46
-	if wave_num == 12 and !weapons.weapon == load("res://weapon_resource/m4a1.tres"):
-		weapons.weapon = load("res://weapon_resource/m4a1.tres")
-		weapons.load_weapon()
-		Variables.zombie_health = 55
-
 func intro_method() -> void:
 	gate_anims.play_backwards("close")
+	await get_tree().create_timer(10).timeout
+	Variables.is_pauseable = true
+
+func outro_method() -> void:
+	camera.rotation = Vector3(0, 0, 0)
+	head.rotation = Vector3(0, 0, 0)
+	await get_tree().create_timer(3.5).timeout
+	gate_anims.play("open")
 
 func remove_velo_aftet_cut() -> void:
 	velocity.y = 0
+
+func wave_manager(zombies, z_health, wait) -> void:
+	var previous_point: Node3D
+	Variables.zombies_alive = zombies
+	Variables.zombie_health = z_health
+	for i in range(zombies):
+		await get_tree().create_timer(wait).timeout
+		var point = spawn_points.get_child(randf_range(0, spawn_points.get_child_count() - 1))
+		while point == previous_point:
+			point = spawn_points.get_child(randf_range(0, spawn_points.get_child_count() - 1))
+		point.spawn_zombie()
+		previous_point = point
+	await get_tree().create_timer(5).timeout
+	while Variables.zombies_alive > 0:
+		await get_tree().process_frame
+
+func ending() -> void:
+	Variables.is_pauseable = false
+	cutscenes.play("ending")
+	await get_tree().create_timer(33).timeout
+	get_tree().change_scene_to_file("res://scenes/main menu.tscn")
+
+func gameplay() -> void:
+	await get_tree().create_timer(5).timeout
+	await wave_manager(2, 15, 2.8)
+	weapons.weapon = FIVE_SEVEN
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(25, 17, 2.6)
+	weapons.weapon = TEC_9
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(30, 19, 2.4)
+	weapons.weapon = MAC_10
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(35, 21, 2.2)
+	weapons.weapon = UMP_45
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(40, 23, 2.0)
+	weapons.weapon = MP_5
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(45, 25, 1.8)
+	weapons.weapon = P_90
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(50, 27, 1.6)
+	weapons.weapon = FAMAS
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(55, 29, 1.4)
+	weapons.weapon = AK_47
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(60, 31, 1.2)
+	weapons.weapon = AUG
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(65, 33, 1.0)
+	weapons.weapon = SCAR_H
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(70, 35, 0.75)
+	weapons.weapon = M_4A_1
+	weapons.load_weapon()
+	await get_tree().create_timer(10).timeout
+	await wave_manager(75, 37, 0.5) 
+	await get_tree().create_timer(2).timeout
+	can_control = false
+	ending() 
+
+func ammo_boxes(yesorno: bool) -> void:
+	if yesorno == false:
+		boxes.visible = false
+	if yesorno == true:
+		boxes.visible = true
+		for i in range(boxes.get_child_count()):
+			var box = boxes.get_child(i)
+			box.visible = true
+
+func out_of_ammo() -> void:
+	if weapons.total_ammo_count < 11:
+		ammo_boxes(true)
+	else:
+		ammo_boxes(false)
+
+func get_ammo() -> void:
+	if Variables.give_ammo:
+		weapons.total_ammo_count += 50
+		Variables.give_ammo = false

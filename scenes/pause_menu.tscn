@@ -1,0 +1,288 @@
+[gd_scene load_steps=15 format=3 uid="uid://dacnvx15xneic"]
+
+[ext_resource type="Script" uid="uid://qiymhpcfe6gd" path="res://scripts/pause_menu.gd" id="1_5d2l8"]
+[ext_resource type="Texture2D" uid="uid://c0v2672tx5bda" path="res://assets/ui/Button_Flesh.png" id="2_7l7mv"]
+[ext_resource type="Texture2D" uid="uid://djn1mudqkuf4d" path="res://assets/ui/Backbone.png" id="3_knqa7"]
+[ext_resource type="Texture2D" uid="uid://dedfqg21xa46q" path="res://assets/ui/Button_Flesh_Pressed.png" id="3_v4r4p"]
+[ext_resource type="FontFile" uid="uid://dkke0ijdtyul1" path="res://assets/Font.ttf" id="4_1s2dm"]
+[ext_resource type="Texture2D" uid="uid://scmf3xexv024" path="res://assets/ui/Gauge_Stomach_Empty.png" id="4_71k7c"]
+[ext_resource type="Shader" uid="uid://c6a47gbqegtlc" path="res://scripts/blur.gdshader" id="5_7l7mv"]
+[ext_resource type="Texture2D" uid="uid://0hhiioamgmrv" path="res://assets/ui/Rib.png" id="5_cmnsq"]
+[ext_resource type="Texture2D" uid="uid://bounbleekf80" path="res://assets/ui/Button_Backbone_Pressef.png" id="6_ofnjo"]
+
+[sub_resource type="Animation" id="Animation_v4r4p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Black:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1s2dm"]
+resource_name = "black"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Black:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7l7mv"]
+resource_name = "blur"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v4r4p"]
+_data = {
+&"RESET": SubResource("Animation_v4r4p"),
+&"black": SubResource("Animation_1s2dm"),
+&"blur": SubResource("Animation_7l7mv")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v4r4p"]
+shader = ExtResource("5_7l7mv")
+shader_parameter/blur_amount = 4.0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 5
+
+[node name="Pause Menu" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5d2l8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pause Menu"]
+libraries = {
+&"": SubResource("AnimationLibrary_v4r4p")
+}
+
+[node name="Blur" type="ColorRect" parent="Pause Menu"]
+material = SubResource("ShaderMaterial_v4r4p")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Black" type="ColorRect" parent="Pause Menu"]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Design" type="Control" parent="Pause Menu"]
+z_index = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Rib" type="TextureRect" parent="Pause Menu/Design"]
+layout_mode = 0
+offset_left = 860.0
+offset_top = -4.0
+offset_right = 2252.0
+offset_bottom = 1868.0
+rotation = 0.488781
+scale = Vector2(0.469955, 0.469955)
+texture = ExtResource("3_knqa7")
+
+[node name="Stomach" type="TextureRect" parent="Pause Menu/Design"]
+layout_mode = 0
+offset_left = 1395.0
+offset_top = 703.0
+offset_right = 2787.0
+offset_bottom = 2575.0
+rotation = -0.589574
+scale = Vector2(0.177148, 0.149273)
+texture = ExtResource("4_71k7c")
+
+[node name="Bone" type="TextureRect" parent="Pause Menu/Design"]
+layout_mode = 0
+offset_left = 1412.0
+offset_top = 178.0
+offset_right = 2804.0
+offset_bottom = 2050.0
+rotation = 0.287882
+scale = Vector2(0.225637, 0.0479383)
+texture = ExtResource("5_cmnsq")
+
+[node name="Bone2" type="TextureRect" parent="Pause Menu/Design"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 481.0
+offset_right = 1462.0
+offset_bottom = 2353.0
+rotation = -0.437737
+scale = Vector2(0.322158, 0.0684449)
+texture = ExtResource("6_ofnjo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -194.0
+offset_right = 457.0
+offset_bottom = 551.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme_override_constants/separation = 35
+alignment = 1
+
+[node name="Resume" type="TextureButton" parent="Pause Menu/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_7l7mv")
+texture_pressed = ExtResource("3_v4r4p")
+texture_hover = ExtResource("2_7l7mv")
+texture_focused = ExtResource("2_7l7mv")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Resume"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 35
+theme_override_fonts/font = ExtResource("4_1s2dm")
+theme_override_font_sizes/font_size = 125
+text = "Resume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main Menu" type="TextureButton" parent="Pause Menu/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_7l7mv")
+texture_pressed = ExtResource("3_v4r4p")
+texture_hover = ExtResource("2_7l7mv")
+texture_focused = ExtResource("2_7l7mv")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Main Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 35
+theme_override_fonts/font = ExtResource("4_1s2dm")
+theme_override_font_sizes/font_size = 125
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="TextureButton" parent="Pause Menu/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_7l7mv")
+texture_pressed = ExtResource("3_v4r4p")
+texture_hover = ExtResource("2_7l7mv")
+texture_focused = ExtResource("2_7l7mv")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 35
+theme_override_fonts/font = ExtResource("4_1s2dm")
+theme_override_font_sizes/font_size = 125
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit" type="TextureButton" parent="Pause Menu/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_7l7mv")
+texture_pressed = ExtResource("3_v4r4p")
+texture_hover = ExtResource("2_7l7mv")
+texture_focused = ExtResource("2_7l7mv")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Quit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 35
+theme_override_fonts/font = ExtResource("4_1s2dm")
+theme_override_font_sizes/font_size = 125
+text = "Quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Pause Menu/VBoxContainer/Resume" to="Pause Menu" method="_on_resume_pressed"]
+[connection signal="pressed" from="Pause Menu/VBoxContainer/Main Menu" to="Pause Menu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Pause Menu/VBoxContainer/Settings" to="Pause Menu" method="_on_settings_pressed"]
+[connection signal="pressed" from="Pause Menu/VBoxContainer/Quit" to="Pause Menu" method="_on_quit_pressed"]

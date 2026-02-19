@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="weapons_resource" load_steps=3 format=3 uid="uid://dguwoy4l82cir"]
+[gd_resource type="Resource" script_class="weapons_resource" load_steps=3 format=3 uid="uid://h3e25pknm1q4"]
 
 [ext_resource type="Script" uid="uid://d23t6hf6wbf62" path="res://scripts/weapon_resource.gd" id="1_1e00n"]
 [ext_resource type="ArrayMesh" uid="uid://dm60id15s7pta" path="res://weapons/five seven/five seven.tres" id="1_1f12d"]
 
 [resource]
 script = ExtResource("1_1e00n")
-weapon_name = "five seven"
+weapon_name = "FIVE SEVEN"
 tier_number = 2
-bullet_delay = 0.5
+bullet_delay = 0.4
 single_damage = 4.4
 shoot_range = 35
 magazine_size = 7
@@ -25,13 +25,13 @@ camera_amount_rotation = 30.0
 idle_amount = 10.0
 idle_strength = 300.0
 idle_random_amount = 5.0
-rotate_recoil_amount = Vector3(0.03, 0.01, 0.01)
+rotate_recoil_amount = Vector3(0.23, 0.01, 0.01)
 rotate_snap = 15.0
 rotate_speed = 10.0
-position_recoil_amount = Vector3(0.01, 0.01, 0.02)
+position_recoil_amount = Vector3(0.02, 0.02, 0.035)
 position_snap = 20.0
 position_speed = 10.0
 flash_time = 0.85
-muzzle_position = Vector3(0.156132, -1.11624e-08, 0.0312122)
+muzzle_position = Vector3(0.163, 0, 0.031)
 mesh_scene = ExtResource("1_1f12d")
 metadata/_custom_type_script = "uid://d23t6hf6wbf62"

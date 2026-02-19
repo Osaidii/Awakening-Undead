@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dkrvx17yiafo1"]
+[gd_scene load_steps=20 format=3 uid="uid://dkrvx17yiafo1"]
 
 [ext_resource type="Script" uid="uid://b10pd6iw5nydq" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cmhyvrtry587" path="res://scripts/crosshair_container.gd" id="2_g2els"]
@@ -9,8 +9,6 @@
 [ext_resource type="FontFile" uid="uid://dkke0ijdtyul1" path="res://assets/Font.ttf" id="6_tuyoq"]
 [ext_resource type="Resource" uid="uid://dovd1ytg1cd4l" path="res://weapon_resource/glock_18.tres" id="6_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cl505e4bbokab" path="res://assets/bars_outline.png" id="7_fjrip"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
 
@@ -105,14 +103,10 @@ tracks/2/keys = {
 "values": [2.0, 1.2]
 }
 
-[sub_resource type="Animation" id="Animation_fjrip"]
-resource_name = "die"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
 _data = {
 &"RESET": SubResource("Animation_tuyoq"),
-&"crouch": SubResource("Animation_g2els"),
-&"die": SubResource("Animation_fjrip")
+&"crouch": SubResource("Animation_g2els")
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
@@ -135,10 +129,6 @@ bg_color = Color(0, 0.772549, 1, 1)
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
 
-[node name="Shape" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("CapsuleMesh_u8vuu")
-
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3vyb7")
 
@@ -150,14 +140,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0721129, 0)
 script = ExtResource("2_tuyoq")
 
 [node name="Camera" type="Camera3D" parent="Head/Recoil"]
-transform = Transform3D(1, 0, 0, 0, 0.999431, -0.0337308, 0, 0.0337308, 0.999431, 0, 0, 0)
 
 [node name="RecoilPosition" type="Node3D" parent="Head/Recoil/Camera"]
 script = ExtResource("3_fjrip")
 
 [node name="Weapons" parent="Head/Recoil/Camera/RecoilPosition" instance=ExtResource("2_qhqgy")]
 unique_name_in_owner = true
-transform = Transform3D(-0.0983097, -0.0635641, 0.993124, 0.155952, 0.984644, 0.0784591, -0.98286, 0.162593, -0.0868871, 0.085, -0.09, -0.175)
+transform = Transform3D(-0.0983097, -0.063564, 0.993123, 0.155952, 0.984643, 0.078459, -0.98286, 0.162593, -0.086887, 0.085, -0.09, -0.175)
 mesh = ExtResource("5_ur7pv")
 skeleton = NodePath("../..")
 weapon = ExtResource("6_y4r1p")
@@ -217,6 +206,28 @@ width = 2.0
 [node name="Right" type="Line2D" parent="UI/CrosshairContainer"]
 points = PackedVector2Array(10, 0, 20, 0)
 width = 2.0
+
+[node name="Interaction Tutorial" type="Label" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -553.5
+offset_top = 440.0
+offset_right = 553.5
+offset_bottom = 551.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_tuyoq")
+theme_override_font_sizes/font_size = 50
+text = "Press H to Open"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="StairUp" type="RayCast3D" parent="."]
 
