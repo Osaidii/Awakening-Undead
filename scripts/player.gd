@@ -321,17 +321,15 @@ func outro_method() -> void:
 func remove_velo_aftet_cut() -> void:
 	velocity.y = 0
 
-func wave_manager(zombies, z_health, wait) -> void:
-	var previous_point: Node3D
+func wave_manager(zombies, z_health, wait, atp) -> void:
 	Variables.zombies_alive = zombies
 	Variables.zombie_health = z_health
 	for i in range(zombies):
 		await get_tree().create_timer(wait).timeout
 		var point = spawn_points.get_child(randf_range(0, spawn_points.get_child_count() - 1))
-		while point == previous_point:
-			point = spawn_points.get_child(randf_range(0, spawn_points.get_child_count() - 1))
 		point.spawn_zombie()
-		previous_point = point
+		if Variables.zombies_alive > atp:
+			await get_tree().process_frame
 	await get_tree().create_timer(5).timeout
 	while Variables.zombies_alive > 0:
 		await get_tree().process_frame
@@ -344,51 +342,51 @@ func ending() -> void:
 
 func gameplay() -> void:
 	await get_tree().create_timer(5).timeout
-	await wave_manager(2, 15, 2.8)
+	await wave_manager(8, 15, 2.8, 3)
 	weapons.weapon = FIVE_SEVEN
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(25, 17, 2.6)
+	await wave_manager(16, 17, 2.6, 6)
 	weapons.weapon = TEC_9
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(30, 19, 2.4)
+	await wave_manager(24, 19, 2.4, 8)
 	weapons.weapon = MAC_10
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(35, 21, 2.2)
+	await wave_manager(32, 21, 2.2, 10)
 	weapons.weapon = UMP_45
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(40, 23, 2.0)
+	await wave_manager(35, 23, 2.0, 12)
 	weapons.weapon = MP_5
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(45, 25, 1.8)
+	await wave_manager(40, 25, 1.8, 12)
 	weapons.weapon = P_90
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(50, 27, 1.6)
+	await wave_manager(50, 27, 1.6, 15)
 	weapons.weapon = FAMAS
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(55, 29, 1.4)
+	await wave_manager(55, 29, 1.4, 15)
 	weapons.weapon = AK_47
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(60, 31, 1.2)
+	await wave_manager(60, 31, 1.2, 16)
 	weapons.weapon = AUG
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(65, 33, 1.0)
+	await wave_manager(65, 33, 1.0, 17)
 	weapons.weapon = SCAR_H
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(70, 35, 0.75)
+	await wave_manager(70, 35, 0.75, 18)
 	weapons.weapon = M_4A_1
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(75, 37, 0.5) 
+	await wave_manager(75, 37, 0.5, 20) 
 	await get_tree().create_timer(2).timeout
 	can_control = false
 	ending() 

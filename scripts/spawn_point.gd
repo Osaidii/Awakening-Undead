@@ -13,9 +13,5 @@ func spawn_zombie():
 	pos.y += 2
 	world.add_child(instance)
 	instance.global_position = pos
-	point.position.x = 0.4
-	if player.weapons.weapon == P_90:
-		Variables.can_spawn_double = true
-	if !Variables.can_spawn_double:
-		if instance.is_alive:
-			await get_tree().process_frame
+	if instance.is_alive:
+		await get_tree().process_frame
