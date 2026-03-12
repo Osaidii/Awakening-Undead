@@ -76,9 +76,10 @@ var stamina_regen := 75
 var is_regening := false
 
 func _ready() -> void:
+	print("here")
 	middle.position = Vector2(0, 0)
 	middle.visible = true
-	if Variables.cutscene_played:
+	if !Variables.cutscene_played:
 		cutscenes.play("intro")
 		entry_music.play()
 		Variables.is_pauseable = false

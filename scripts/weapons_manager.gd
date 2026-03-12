@@ -24,7 +24,7 @@ signal weapon_fired
 @onready var famas_aug: AudioStreamPlayer3D = $"Famas AUG"
 @onready var ak_47: AudioStreamPlayer3D = $AK47
 @onready var scar_h_m_4a_1: AudioStreamPlayer3D = $"Scar H M4A1"
-@onready var m_4a_1_p_90: AudioStreamPlayer3D = $"M4A1 P90"
+@onready var ump_45_p_90: AudioStreamPlayer3D = $"UMP 45 P90"
 
 const AK_47 = preload("res://weapon_resource/ak47.tres")
 const AUG = preload("res://weapon_resource/aug.tres")
@@ -167,7 +167,7 @@ func shoot() -> void:
 		if weapon == SCAR_H or weapon == M_4A_1:
 			scar_h_m_4a_1.play()
 		if weapon == P_90 or weapon == UMP_45:
-			famas_aug.play()
+			ump_45_p_90.play()
 		var result: Dictionary = space_state.intersect_ray(query)
 		if result:
 			bullet_damage(result.get("position"), result.get("normal"))

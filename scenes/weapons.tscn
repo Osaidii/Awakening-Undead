@@ -104,7 +104,7 @@ attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
 
-[node name="M4A1 P90" type="AudioStreamPlayer3D" parent="."]
+[node name="UMP 45 P90" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_grcyh")
 attenuation_model = 2
 volume_db = -80.0
