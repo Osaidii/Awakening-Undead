@@ -43,6 +43,3 @@ func _on_main_menu_pressed() -> void:
 
 func _on_resume_pressed() -> void:
 	resume()
-
-func _on_settings_pressed() -> void:
-	pass

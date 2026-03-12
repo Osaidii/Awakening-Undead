@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxm16fl2emhyy"]
+[gd_scene load_steps=17 format=3 uid="uid://dxm16fl2emhyy"]
 
 [ext_resource type="ArrayMesh" uid="uid://bn7lltmcu1rkl" path="res://weapons/ak47/ak47.tres" id="1_pe4jq"]
 [ext_resource type="Script" uid="uid://6p1qgjqqks07" path="res://scripts/weapons_manager.gd" id="1_rvi01"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://b788axd78fu24" path="res://assets/gun sounds/ak47.mp3" id="8_tigg3"]
 [ext_resource type="AudioStream" uid="uid://bt7itt0ao0vhn" path="res://assets/gun sounds/m4a1 and scar-h.mp3" id="9_grcyh"]
 [ext_resource type="AudioStream" uid="uid://d36wvmxy7pura" path="res://assets/gun sounds/p90 and ump 45.mp3" id="10_grcyh"]
+[ext_resource type="AudioStream" uid="uid://1wcx3xp1wk3b" path="res://assets/gun sounds/mp5.mp3" id="11_8vkva"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pe4jq"]
 angle_min = -73.0
@@ -106,6 +107,12 @@ max_db = -10.0
 
 [node name="UMP 45 P90" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_grcyh")
+attenuation_model = 2
+volume_db = -80.0
+max_db = -10.0
+
+[node name="MP 5" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("11_8vkva")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0

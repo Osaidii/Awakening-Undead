@@ -1,6 +1,5 @@
 extends Node
 
-
 var zombie_health := 0
 var player_pos: Vector3
 var player_hit := false
@@ -13,3 +12,4 @@ var can_spawn_double: bool
 var reload: bool
 var cutscene_played := false
 var can_control: bool
+var once_death: bool

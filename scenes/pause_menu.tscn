@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dacnvx15xneic"]
+[gd_scene load_steps=14 format=3 uid="uid://dacnvx15xneic"]
 
 [ext_resource type="Script" uid="uid://qiymhpcfe6gd" path="res://scripts/pause_menu.gd" id="1_5d2l8"]
 [ext_resource type="Texture2D" uid="uid://c0v2672tx5bda" path="res://assets/ui/Button_Flesh.png" id="2_7l7mv"]
 [ext_resource type="Texture2D" uid="uid://djn1mudqkuf4d" path="res://assets/ui/Backbone.png" id="3_knqa7"]
-[ext_resource type="Texture2D" uid="uid://dedfqg21xa46q" path="res://assets/ui/Button_Flesh_Pressed.png" id="3_v4r4p"]
 [ext_resource type="FontFile" uid="uid://dkke0ijdtyul1" path="res://assets/Font.ttf" id="4_1s2dm"]
 [ext_resource type="Texture2D" uid="uid://scmf3xexv024" path="res://assets/ui/Gauge_Stomach_Empty.png" id="4_71k7c"]
 [ext_resource type="Shader" uid="uid://c6a47gbqegtlc" path="res://scripts/blur.gdshader" id="5_7l7mv"]
@@ -164,125 +163,113 @@ rotation = -0.437737
 scale = Vector2(0.322158, 0.0684449)
 texture = ExtResource("6_ofnjo")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu"]
+[node name="Control" type="Control" parent="Pause Menu"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Resume" type="TextureButton" parent="Pause Menu/Control"]
 z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -183.0
-offset_top = -194.0
-offset_right = 457.0
-offset_bottom = 551.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-theme_override_constants/separation = 35
-alignment = 1
-
-[node name="Resume" type="TextureButton" parent="Pause Menu/VBoxContainer"]
-layout_mode = 2
+offset_left = 762.0
+offset_top = 351.0
+offset_right = 1402.0
+offset_bottom = 511.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
-texture_pressed = ExtResource("3_v4r4p")
-texture_hover = ExtResource("2_7l7mv")
-texture_focused = ExtResource("2_7l7mv")
-stretch_mode = 5
 
-[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Resume"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -12.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="Pause Menu/Control/Resume"]
+offset_left = 3.0
+offset_top = -13.3552
+offset_right = 529.0
+offset_bottom = 106.645
+scale = Vector2(1.2242, 1.07486)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 35
+theme_override_constants/outline_size = 30
 theme_override_fonts/font = ExtResource("4_1s2dm")
-theme_override_font_sizes/font_size = 125
+theme_override_font_sizes/font_size = 120
 text = "Resume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Main Menu" type="TextureButton" parent="Pause Menu/VBoxContainer"]
-layout_mode = 2
+[node name="Main Menu" type="TextureButton" parent="Pause Menu/Control"]
+z_index = 1
+offset_left = 762.0
+offset_top = 460.5
+offset_right = 1402.0
+offset_bottom = 620.5
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
-texture_pressed = ExtResource("3_v4r4p")
-texture_hover = ExtResource("2_7l7mv")
-texture_focused = ExtResource("2_7l7mv")
-stretch_mode = 5
 
-[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Main Menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -12.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="Pause Menu/Control/Main Menu"]
+offset_left = 3.0
+offset_top = -13.3552
+offset_right = 529.0
+offset_bottom = 106.645
+scale = Vector2(1.2242, 1.07486)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 35
+theme_override_constants/outline_size = 30
 theme_override_fonts/font = ExtResource("4_1s2dm")
-theme_override_font_sizes/font_size = 125
+theme_override_font_sizes/font_size = 120
 text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Settings" type="TextureButton" parent="Pause Menu/VBoxContainer"]
-layout_mode = 2
+[node name="Settings" type="TextureButton" parent="Pause Menu/Control"]
+z_index = 1
+offset_left = 762.0
+offset_top = 572.0
+offset_right = 1402.0
+offset_bottom = 732.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
-texture_pressed = ExtResource("3_v4r4p")
-texture_hover = ExtResource("2_7l7mv")
-texture_focused = ExtResource("2_7l7mv")
-stretch_mode = 5
 
-[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Settings"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -12.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="Pause Menu/Control/Settings"]
+offset_left = 3.0
+offset_top = -13.3552
+offset_right = 529.0
+offset_bottom = 106.645
+scale = Vector2(1.2242, 1.07486)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 35
+theme_override_constants/outline_size = 30
 theme_override_fonts/font = ExtResource("4_1s2dm")
-theme_override_font_sizes/font_size = 125
+theme_override_font_sizes/font_size = 120
 text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Quit" type="TextureButton" parent="Pause Menu/VBoxContainer"]
-layout_mode = 2
+[node name="Quit" type="TextureButton" parent="Pause Menu/Control"]
+z_index = 1
+offset_left = 762.0
+offset_top = 681.0
+offset_right = 1402.0
+offset_bottom = 841.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
-texture_pressed = ExtResource("3_v4r4p")
-texture_hover = ExtResource("2_7l7mv")
-texture_focused = ExtResource("2_7l7mv")
-stretch_mode = 5
 
-[node name="Label" type="Label" parent="Pause Menu/VBoxContainer/Quit"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -12.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="Pause Menu/Control/Quit"]
+offset_left = 3.0
+offset_top = -13.3552
+offset_right = 529.0
+offset_bottom = 106.645
+scale = Vector2(1.2242, 1.07486)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 35
+theme_override_constants/outline_size = 30
 theme_override_fonts/font = ExtResource("4_1s2dm")
-theme_override_font_sizes/font_size = 125
+theme_override_font_sizes/font_size = 120
 text = "Quit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Pause Menu/VBoxContainer/Resume" to="Pause Menu" method="_on_resume_pressed"]
-[connection signal="pressed" from="Pause Menu/VBoxContainer/Main Menu" to="Pause Menu" method="_on_main_menu_pressed"]
-[connection signal="pressed" from="Pause Menu/VBoxContainer/Settings" to="Pause Menu" method="_on_settings_pressed"]
-[connection signal="pressed" from="Pause Menu/VBoxContainer/Quit" to="Pause Menu" method="_on_quit_pressed"]
+[connection signal="pressed" from="Pause Menu/Control/Resume" to="Pause Menu" method="_on_resume_pressed"]
+[connection signal="pressed" from="Pause Menu/Control/Main Menu" to="Pause Menu" method="_on_restart_pressed"]
+[connection signal="pressed" from="Pause Menu/Control/Main Menu" to="Pause Menu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Pause Menu/Control/Quit" to="Pause Menu" method="_on_quit_pressed"]

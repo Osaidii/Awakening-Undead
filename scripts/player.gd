@@ -76,10 +76,9 @@ var stamina_regen := 75
 var is_regening := false
 
 func _ready() -> void:
-	print("here")
 	middle.position = Vector2(0, 0)
 	middle.visible = true
-	if !Variables.cutscene_played:
+	if Variables.cutscene_played:
 		cutscenes.play("intro")
 		entry_music.play()
 		Variables.is_pauseable = false
@@ -93,6 +92,7 @@ func _ready() -> void:
 	current_stamina = STAMINA
 	health.max_value = HEALTH
 	stamina.max_value = STAMINA
+	Variables.once_death = false
 
 func _input(event: InputEvent) -> void:
 	if !can_control: return
@@ -106,8 +106,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump") and !is_crouching:
 		jump()
 	
-	
-	
 	# Crouch
 	if event.is_action_pressed("crouch"):
 		crouch()
@@ -119,10 +117,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(60))
 
 func _physics_process(delta: float) -> void:
-	if is_dead: return
+	if is_dead: 
+		return
 	if current_health <= 0:
-		is_dead = true
+		print("Health zero, calling die()")
 		die()
+		return
 	
 	if Input.is_action_pressed("temp"):
 		cutscenes.stop()
@@ -313,15 +313,22 @@ func hit(dir) -> void:
 	Variables.player_hit = false
 
 func die() -> void:
-	Variables.is_changing = true
-	cutscenes.play("die")
-	await get_tree().create_timer(2.4).timeout
-	death_text.text = "GET UP" 
-	await get_tree().create_timer(2.6).timeout
+	print("die() entered, is_dead=", is_dead, " once_death=", Variables.once_death)
+	if is_dead or Variables.once_death:
+		print("die() guard triggered, returning")
+		return
+	Variables.once_death = true
+	is_dead = true
+	can_control = false
 	current_health = 100
+	print("die() proceeding, playing cutscene")
+	cutscenes.play("die")
+	await get_tree().create_timer(5).timeout
+	print("Reloading scene")
 	get_tree().reload_current_scene()
 
 func take_damage(damage) -> void:
+	if not is_instance_valid(self): return
 	current_health -= damage
 	current_health = clamp(current_health, 0, HEALTH)
 	health.value = current_health
@@ -349,6 +356,7 @@ func remove_velo_aftet_cut() -> void:
 	velocity.y = 0
 
 func wave_manager(zombies, z_health, wait, atp) -> void:
+	if not is_instance_valid(self): return
 	Variables.zombies_alive = zombies
 	Variables.zombie_health = z_health
 	for i in range(zombies):
@@ -367,12 +375,14 @@ func wave_manager(zombies, z_health, wait, atp) -> void:
 		await get_tree().process_frame
 
 func ending() -> void:
+	if not is_instance_valid(self): return
 	Variables.is_pauseable = false
 	cutscenes.play("ending")
 	await get_tree().create_timer(33).timeout
 	get_tree().change_scene_to_file("res://scenes/main menu.tscn")
 
 func gameplay() -> void:
+	if not is_instance_valid(self): return
 	await get_tree().create_timer(5).timeout
 	await wave_manager(8, 15, 2.8, 3)
 	weapons.weapon = FIVE_SEVEN
