@@ -2118,7 +2118,6 @@ transform = Transform3D(-1.8604, 0, -4.641, 0, 5, 0, 4.641, 0, -1.8604, -67.2563
 [node name="Player" parent="." instance=ExtResource("2_4wyf3")]
 unique_name_in_owner = true
 transform = Transform3D(-3.61999e-06, 0, 1, 0, 1, 0, -1, 0, -3.61999e-06, 8.108, -5.086, 5.8)
-HEALTH = 1
 RUN_SPEED = 5.5
 SENSITIVITY = 0.005
 can_control = true
@@ -2166,6 +2165,10 @@ theme_override_font_sizes/font_size = 100
 text = "YOU HAVE DIED"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Death wait" type="Timer" parent="Player"]
+wait_time = 0.5
+one_shot = true
 
 [node name="Barriers" type="Node3D" parent="."]
 

@@ -46,6 +46,7 @@ extends CharacterBody3D
 @onready var bg: ColorRect = $"../Credits/BG"
 @onready var entry_music: AudioStreamPlayer3D = $"../Audios/Entry Music"
 @onready var death_text: Label = $"HUD/Death Text"
+@onready var death_wait: Timer = $"Death wait"
 
 const AK_47 = preload("res://weapon_resource/ak47.tres")
 const AUG = preload("res://weapon_resource/aug.tres")
@@ -68,14 +69,18 @@ var fall_value := 0.0
 var FALL_TILT_TIMER := 0.0
 var forward_tilt_max := 1.25
 var current_fall_velocity: float 
-var current_health := 5
+var current_health: int
 var is_dead:= false
 var current_stamina := 0
 var stamina_drain := 0.1
 var stamina_regen := 75
 var is_regening := false
+var can_sprint := true
 
 func _ready() -> void:
+	death_wait.start()
+	current_health = HEALTH
+	Variables.player_hit
 	middle.position = Vector2(0, 0)
 	middle.visible = true
 	if Variables.cutscene_played:
@@ -88,11 +93,9 @@ func _ready() -> void:
 	position = Vector3(16, -5, 5)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	crouch_check.add_exception($".")
-	current_health = HEALTH
 	current_stamina = STAMINA
 	health.max_value = HEALTH
 	stamina.max_value = STAMINA
-	Variables.once_death = false
 
 func _input(event: InputEvent) -> void:
 	if !can_control: return
@@ -119,24 +122,23 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead: 
 		return
-	if current_health <= 0:
-		print("Health zero, calling die()")
+	if current_health <= 0 and death_wait.is_stopped():
 		die()
 		return
 	
-	if Input.is_action_pressed("temp"):
-		cutscenes.stop()
-		position = Vector3(8.108, -5.086, 5.8)
-		rotation = Vector3(0, 90, 0)
-		can_control = true
-		up.visible = false
-		down.visible = false
-		middle.visible = false
-		weapons.visible = true
-		ui.visible = true
-		head.rotation = Vector3(0, 0 ,0)
-		camera.rotation = Vector3(0, 0 ,0)
-		gameplay()
+	#if Input.is_action_pressed("temp"):
+	#	cutscenes.stop()
+	#	position = Vector3(8.108, -5.086, 5.8)
+	#	rotation = Vector3(0, 90, 0)
+	#	can_control = true
+	#	up.visible = false
+	#	down.visible = false
+	#	middle.visible = false
+	#	weapons.visible = true
+	#	ui.visible = true
+	#	head.rotation = Vector3(0, 0 ,0)
+	#	camera.rotation = Vector3(0, 0 ,0)
+	#	gameplay()
 	
 	if can_control:
 		Variables.can_control = true
@@ -217,7 +219,11 @@ func crouch() -> void:
 
 func change_speed(delta) -> void:
 	if !can_control: return
-	if Input.is_action_pressed("run") and current_stamina > 0:
+	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !Input.is_action_pressed("backward") and !Input.is_action_pressed("forward"):
+		can_sprint = false
+	else:
+		can_sprint = true
+	if Input.is_action_pressed("run") and current_stamina > 0 and can_sprint:
 		is_regening = false
 		speed = RUN_SPEED
 		if velocity.x > 0.01 or velocity.z > 0.01:
@@ -313,21 +319,20 @@ func hit(dir) -> void:
 	Variables.player_hit = false
 
 func die() -> void:
-	print("die() entered, is_dead=", is_dead, " once_death=", Variables.once_death)
-	if is_dead or Variables.once_death:
-		print("die() guard triggered, returning")
+	death_wait.stop()
+	if is_dead or Variables.once_death or !death_wait.is_stopped():
 		return
 	Variables.once_death = true
 	is_dead = true
 	can_control = false
-	current_health = 100
-	print("die() proceeding, playing cutscene")
 	cutscenes.play("die")
-	await get_tree().create_timer(5).timeout
-	print("Reloading scene")
+	await get_tree().create_timer(2.4).timeout
+	death_text.text = "GET UP"
+	await get_tree().create_timer(2.6).timeout
 	get_tree().reload_current_scene()
 
 func take_damage(damage) -> void:
+	if is_dead: return
 	if not is_instance_valid(self): return
 	current_health -= damage
 	current_health = clamp(current_health, 0, HEALTH)
@@ -371,7 +376,8 @@ func wave_manager(zombies, z_health, wait, atp) -> void:
 		if Variables.zombies_alive > atp -1:
 			await get_tree().process_frame
 	await get_tree().create_timer(5).timeout
-	while Variables.zombies_alive > 0:
+	while Variables.zombies_alive > 0 and !is_dead:
+		if not is_instance_valid(self): return
 		await get_tree().process_frame
 
 func ending() -> void:
