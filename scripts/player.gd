@@ -47,6 +47,7 @@ extends CharacterBody3D
 @onready var entry_music: AudioStreamPlayer3D = $"../Audios/Entry Music"
 @onready var death_text: Label = $"HUD/Death Text"
 @onready var death_wait: Timer = $"Death wait"
+@onready var death_shader: ColorRect = $"HUD/Death Shader"
 
 const AK_47 = preload("res://weapon_resource/ak47.tres")
 const AUG = preload("res://weapon_resource/aug.tres")
@@ -70,12 +71,14 @@ var FALL_TILT_TIMER := 0.0
 var forward_tilt_max := 1.25
 var current_fall_velocity: float 
 var current_health: int
-var is_dead:= false
+var is_dead := false
 var current_stamina := 0
 var stamina_drain := 0.1
 var stamina_regen := 75
 var is_regening := false
 var can_sprint := true
+
+var shader_material = ShaderMaterial.new()
 
 func _ready() -> void:
 	death_wait.start()
@@ -83,6 +86,9 @@ func _ready() -> void:
 	Variables.player_hit
 	middle.position = Vector2(0, 0)
 	middle.visible = true
+	shader_material.shader = preload("res://scripts/vhs.gdshader")
+	death_shader.material = null
+	death_shader.visible = false
 	if Variables.cutscene_played:
 		cutscenes.play("intro")
 		entry_music.play()
@@ -324,6 +330,8 @@ func die() -> void:
 		return
 	Variables.once_death = true
 	is_dead = true
+	death_shader.visible = true
+	death_shader.material = shader_material
 	can_control = false
 	cutscenes.play("die")
 	await get_tree().create_timer(2.4).timeout

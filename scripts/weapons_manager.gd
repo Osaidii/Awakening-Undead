@@ -26,6 +26,7 @@ signal weapon_fired
 @onready var scar_h_m_4a_1: AudioStreamPlayer3D = $"Scar H M4A1"
 @onready var ump_45_p_90: AudioStreamPlayer3D = $"UMP 45 P90"
 @onready var mp_5: AudioStreamPlayer3D = $"MP 5"
+@onready var crosshair_container: CenterContainer = $Player/UI/CrosshairContainer
 
 const AK_47 = preload("res://weapon_resource/ak47.tres")
 const AUG = preload("res://weapon_resource/aug.tres")
@@ -189,7 +190,7 @@ func damage_target(result: Dictionary) -> void:
 		if !target.is_playing_sound and target.current_health > weapon.single_damage:
 			target.play_sound("hurt")
 			target.is_playing_sound = true
-		if collider.is_in_group("head"):
+		if target.is_in_group("head"):
 			target.take_damage(weapon.single_damage * 2)
 		else:
 			target.take_damage(weapon.single_damage)
