@@ -158,12 +158,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.959777, -0.858664)
 script = ExtResource("7_y4r1p")
 
 [node name="Down" type="RayCast3D" parent="Head/Recoil/Camera/Stair Trigger"]
-transform = Transform3D(-0.708474, 0.705709, -0.00626575, 0.705723, 0.708488, 0, 0.00443921, -0.00442189, -0.99998, 0, -0.497002, 0.857376)
-target_position = Vector3(0, 0, 1)
+transform = Transform3D(-0.708474, 0.705709, -0.00626575, 0.705723, 0.708488, 0, 0.00443921, -0.00442189, -0.99998, 0, -0.447773, 0.857376)
+target_position = Vector3(0, 0, 0.7)
 
 [node name="Up" type="RayCast3D" parent="Head/Recoil/Camera/Stair Trigger"]
-transform = Transform3D(-0.708474, 0.705709, -0.00626575, 0.705723, 0.708488, 0, 0.00443921, -0.00442189, -0.99998, 0, -0.237436, 0.857376)
-target_position = Vector3(0, 0, 1)
+transform = Transform3D(-0.708474, 0.705709, -0.00626575, 0.705723, 0.708488, 0, 0.00443921, -0.00442189, -0.99998, 0, -0.188207, 0.857376)
+target_position = Vector3(0, 0, 0.7)
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Head/Recoil/Camera")

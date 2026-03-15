@@ -2,12 +2,14 @@ extends Node3D
 
 @onready var world: Node3D = $"../.."
 @onready var point: Marker3D = $point
-const ZOMBIE = preload("res://scenes/zombie.tscn")
 @onready var player: Player = %Player
-const P_90 = preload("res://weapon_resource/p90.tres")
+
+const ZOMBIE := preload("res://scenes/zombie.tscn")
+const P_90 := preload("res://weapon_resource/p90.tres")
+
 var can_spawn := true
 
-func spawn_zombie():
+func spawn_zombie() -> void:
 	if can_spawn:
 		var pos = point.global_position
 		var instance = ZOMBIE.instantiate()

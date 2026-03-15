@@ -10,11 +10,6 @@ signal weapon_fired
 		if Engine.is_editor_hint():
 			load_weapon()
 @export var sway_speed := 1.2
-@export var reset := false:
-	set(value):
-		reset = value
-		if Engine.is_editor_hint():
-			load_weapon()
 
 @onready var player: CharacterBody3D = $"../../../../.."
 @onready var delay: Timer = $Delay
@@ -28,25 +23,24 @@ signal weapon_fired
 @onready var mp_5: AudioStreamPlayer3D = $"MP 5"
 @onready var crosshair_container: CenterContainer = $Player/UI/CrosshairContainer
 
-const AK_47 = preload("res://weapon_resource/ak47.tres")
-const AUG = preload("res://weapon_resource/aug.tres")
-const FAMAS = preload("res://weapon_resource/famas.tres")
-const FIVE_SEVEN = preload("res://weapon_resource/five seven.tres")
-const GLOCK_18 = preload("res://weapon_resource/glock_18.tres")
-const M_4A_1 = preload("res://weapon_resource/m4a1.tres")
-const MAC_10 = preload("res://weapon_resource/mac10.tres")
-const MP_5 = preload("res://weapon_resource/mp5.tres")
-const P_90 = preload("res://weapon_resource/p90.tres")
-const SCAR_H = preload("res://weapon_resource/scar-h.tres")
-const TEC_9 = preload("res://weapon_resource/tec 9.tres")
-const UMP_45 = preload("res://weapon_resource/ump 45.tres")
+const AK_47 := preload("res://weapon_resource/ak47.tres")
+const AUG := preload("res://weapon_resource/aug.tres")
+const FAMAS := preload("res://weapon_resource/famas.tres")
+const FIVE_SEVEN := preload("res://weapon_resource/five seven.tres")
+const GLOCK_18 := preload("res://weapon_resource/glock_18.tres")
+const M_4A_1 := preload("res://weapon_resource/m4a1.tres")
+const MAC_10 := preload("res://weapon_resource/mac10.tres")
+const MP_5 := preload("res://weapon_resource/mp5.tres")
+const P_90 := preload("res://weapon_resource/p90.tres")
+const SCAR_H := preload("res://weapon_resource/scar-h.tres")
+const TEC_9 := preload("res://weapon_resource/tec 9.tres")
+const UMP_45 := preload("res://weapon_resource/ump 45.tres")
 
 var sway_noise: FastNoiseLite
 var mouse_movement: Vector2
 var random_sway_x: float
 var random_sway_y: float
 var random_sway_amount: float
-var shoot_time_gone: float
 var time := 0.0
 var magazine_count: int
 var total_ammo_count: int
@@ -54,8 +48,9 @@ var is_reloading := false
 var idle_sway_adjustment: float
 var idle_sway_rotation_strength: float
 var weapon_bob_amount: Vector2 = Vector2.ZERO
-const BULLET_HOLE = preload("res://instantiable/bullet_decal.tscn")
-const BLOOD_SPLATER = preload("res://instantiable/blood_splater.tscn")
+
+const BULLET_HOLE := preload("res://instantiable/bullet_decal.tscn")
+const BLOOD_SPLATER := preload("res://instantiable/blood_splater.tscn")
 
 func _ready() -> void:
 	await owner.ready
@@ -177,7 +172,6 @@ func shoot() -> void:
 			bullet_damage(result.get("position"), result.get("normal"))
 		if not result.is_empty():
 			damage_target(result)
-		shoot_time_gone = 0.0
 		remove_bullets()
 		delay.start()
 

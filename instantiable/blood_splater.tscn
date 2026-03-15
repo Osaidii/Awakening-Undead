@@ -34,3 +34,9 @@ stream = ExtResource("3_2agmv")
 volume_db = -10.0
 pitch_scale = 2.0
 max_distance = 150.0
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-1.19486, -1.2892, -1.31924, 2.38972, 2.5784, 2.63848)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

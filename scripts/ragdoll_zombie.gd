@@ -9,3 +9,9 @@ func _ready() -> void:
 	physical_bones_start_simulation()
 	await get_tree().create_timer(2.25).timeout
 	physical_bones_stop_simulation()
+
+func _on_visible_on_screen_notifier_3d_screen_entered() -> void:
+	visible = true
+
+func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
+	visible = false

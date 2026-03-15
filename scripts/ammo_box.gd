@@ -9,14 +9,14 @@ func _process(_delta: float) -> void:
 	if get_parent().visible == true:
 		collision.disabled = false
 
-func in_range():
+func in_range() -> void:
 	interaction_tut.text = interact_text
 	interaction_tut.visible = true
 
-func not_in_range():
+func not_in_range() -> void:
 	interaction_tut.visible = false
 
-func interact():
+func interact() -> void:
 	if !is_opened:
 		is_opened = true
 		Variables.give_ammo = true

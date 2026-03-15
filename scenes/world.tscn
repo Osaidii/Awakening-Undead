@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://b4aremvvkmjl8"]
+[gd_scene load_steps=53 format=4 uid="uid://b4aremvvkmjl8"]
 
 [ext_resource type="Texture2D" uid="uid://bs41hi2v4osue" path="res://assets/ground texture.jpg" id="1_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dkrvx17yiafo1" path="res://scenes/player.tscn" id="2_4wyf3"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dwx5y0jrsv3h2" path="res://world_building/cart.tscn" id="14_2lf6f"]
 [ext_resource type="PackedScene" uid="uid://2ad2imtifo3b" path="res://world_building/light.tscn" id="15_7iits"]
 [ext_resource type="PackedScene" uid="uid://bf0qjdylr755x" path="res://world_building/coffin.tscn" id="16_2lf6f"]
+[ext_resource type="Script" uid="uid://bckfetst4kl0d" path="res://church.gd" id="16_navra"]
 [ext_resource type="Texture2D" uid="uid://d0yvpl7u4akh2" path="res://assets/coffin_Material_baseColor.png" id="17_7iits"]
 [ext_resource type="PackedScene" uid="uid://co8dhmgrpswmt" path="res://world_building/church.tscn" id="21_7iits"]
 [ext_resource type="PackedScene" uid="uid://dko1ijdrwm0rs" path="res://scenes/spawn_point.tscn" id="22_oo54l"]
@@ -2059,6 +2060,7 @@ transform = Transform3D(2.80306, -2.09568, -0.0313594, -0.0155301, 0.0315986, -3
 
 [node name="church" parent="Navigation/Church" instance=ExtResource("21_7iits")]
 transform = Transform3D(0.354258, 0, -1.27741, 0, 1.32563, 0, 1.27741, 0, 0.354258, -58.6783, 0.00499678, 35.5369)
+script = ExtResource("16_navra")
 
 [node name="Coffin" type="Node3D" parent="Navigation"]
 
@@ -2158,8 +2160,12 @@ can_control = true
 [node name="Weapons" parent="Player/Head/Recoil/Camera/RecoilPosition" index="0"]
 transform = Transform3D(-0.0983097, -0.063564, 0.993124, 0.155952, 0.984643, 0.0784591, -0.98286, 0.162593, -0.0868871, 0.085, -0.09, -0.175)
 
-[node name="CollisionShape3D" parent="Player/Head/Recoil/Camera/Stair Trigger" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0458984, -0.503205, 0.214233)
+[node name="Down" parent="Player/Head/Recoil/Camera/Stair Trigger" index="0"]
+transform = Transform3D(-0.708474, 0.705709, -0.00626576, 0.705723, 0.708488, 0, 0.00443923, -0.0044219, -0.99998, 0, -0.542642, 0.857376)
+
+[node name="Up" parent="Player/Head/Recoil/Camera/Stair Trigger" index="1"]
+transform = Transform3D(-0.708474, 0.705709, -0.00626576, 0.705723, 0.708488, 0, 0.00443922, -0.00442189, -0.99998, 0, -0.289835, 0.857376)
+target_position = Vector3(0, 0, 0.865)
 
 [node name="Stamina" parent="Player/HUD/Stamina" index="2"]
 value = 1000.0

@@ -45,3 +45,6 @@ shadow_mesh = SubResource("ArrayMesh_hywxm")
 transform = Transform3D(2.5, 0, 0, 0, -1.09278e-07, -2.5, 0, 2.5, -1.09278e-07, 0, 0, 0)
 mesh = SubResource("ArrayMesh_v2rya")
 skeleton = NodePath("")
+
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
+aabb = AABB(-1.01394, -1.02369, -0.0606069, 2.02788, 2.04737, 0.121214)

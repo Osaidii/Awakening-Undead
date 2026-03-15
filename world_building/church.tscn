@@ -2008,3 +2008,7 @@ shape = SubResource("ConvexPolygonShape3D_wlsq7")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="Panels 2_Church_Panels_Front_0/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_j1ug7")
+
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -0.236006, 5.1637, 2.36561)
+aabb = AABB(-4.4767, -6.24177, -6.30501, 8.95341, 12.4835, 12.61)

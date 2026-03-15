@@ -43,25 +43,24 @@ extends CharacterBody3D
 @onready var ui: Control = $UI
 @onready var boxes: Node3D = $"../Navigation/Boxes"
 @onready var main_music: AudioStreamPlayer3D = $"../Audios/Main Music"
-@onready var bg: ColorRect = $"../Credits/BG"
 @onready var entry_music: AudioStreamPlayer3D = $"../Audios/Entry Music"
 @onready var death_text: Label = $"HUD/Death Text"
 @onready var death_wait: Timer = $"Death wait"
 @onready var death_shader: ColorRect = $"HUD/Death Shader"
 @onready var stair_trigger: Node3D = $"Head/Recoil/Camera/Stair Trigger"
 
-const AK_47 = preload("res://weapon_resource/ak47.tres")
-const AUG = preload("res://weapon_resource/aug.tres")
-const FAMAS = preload("res://weapon_resource/famas.tres")
-const FIVE_SEVEN = preload("res://weapon_resource/five seven.tres")
-const GLOCK_18 = preload("res://weapon_resource/glock_18.tres")
-const M_4A_1 = preload("res://weapon_resource/m4a1.tres")
-const MAC_10 = preload("res://weapon_resource/mac10.tres")
-const MP_5 = preload("res://weapon_resource/mp5.tres")
-const P_90 = preload("res://weapon_resource/p90.tres")
-const SCAR_H = preload("res://weapon_resource/scar-h.tres")
-const TEC_9 = preload("res://weapon_resource/tec 9.tres")
-const UMP_45 = preload("res://weapon_resource/ump 45.tres")
+const AK_47 := preload("res://weapon_resource/ak47.tres")
+const AUG := preload("res://weapon_resource/aug.tres")
+const FAMAS := preload("res://weapon_resource/famas.tres")
+const FIVE_SEVEN := preload("res://weapon_resource/five seven.tres")
+const GLOCK_18 := preload("res://weapon_resource/glock_18.tres")
+const M_4A_1 := preload("res://weapon_resource/m4a1.tres")
+const MAC_10 := preload("res://weapon_resource/mac10.tres")
+const MP_5 := preload("res://weapon_resource/mp5.tres")
+const P_90 := preload("res://weapon_resource/p90.tres")
+const SCAR_H := preload("res://weapon_resource/scar-h.tres")
+const TEC_9 := preload("res://weapon_resource/tec 9.tres")
+const UMP_45 := preload("res://weapon_resource/ump 45.tres")
 
 var speed := 0.0
 var time_bob := 0.0
@@ -79,7 +78,7 @@ var stamina_regen := 75
 var is_regening := false
 var can_sprint := true
 
-var shader_material = ShaderMaterial.new()
+var shader_material := ShaderMaterial.new()
 
 func _ready() -> void:
 	death_wait.start()
@@ -90,7 +89,7 @@ func _ready() -> void:
 	shader_material.shader = preload("res://scripts/vhs.gdshader")
 	death_shader.material = null
 	death_shader.visible = false
-	if Variables.cutscene_played:
+	if !Variables.cutscene_played:
 		cutscenes.play("intro")
 		entry_music.play()
 		Variables.is_pauseable = false
@@ -261,11 +260,11 @@ func jump() -> void:
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-func interact():
+func interact() -> void:
 	if interact_cast_result and interact_cast_result.has_user_signal("interacting"):
 		interact_cast_result.emit_signal("interacting")
 
-func interact_cast():
+func interact_cast() -> void:
 	if is_dead: return
 	var space_state := camera.get_world_3d().direct_space_state
 	var screen_center: Vector2 = get_viewport().size / 2

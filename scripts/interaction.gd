@@ -8,16 +8,16 @@ func _ready() -> void:
 	parent = get_parent()
 	connect_parent()
 
-func in_range():
+func in_range() -> void:
 	print("focused")
 
-func not_in_range():
+func not_in_range() -> void:
 	print("unfocused")
 
-func interact():
+func interact() -> void:
 	print("interacted")
 
-func connect_parent():
+func connect_parent() -> void:
 	parent.add_user_signal("focused")
 	parent.add_user_signal("unfocused")
 	parent.add_user_signal("interacting")

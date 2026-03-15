@@ -14,7 +14,6 @@ extends damageable
 @onready var general_skeleton: Skeleton3D = $Armature/GeneralSkeleton
 @onready var general_skeleton_simulator: PhysicalBoneSimulator3D = $Armature/GeneralSkeleton/PhysicalBoneSimulator3D
 @onready var ragdoll_anims: AnimationPlayer
-@onready var world: Node3D = $"./Player"
 @onready var eye_1: OmniLight3D = $Armature/GeneralSkeleton/PhysicalBoneSimulator3D/Head/Eye1
 @onready var eye_2: OmniLight3D = $Armature/GeneralSkeleton/PhysicalBoneSimulator3D/Head/Eye2
 @onready var idle_1: AudioStreamPlayer3D = $"Idle 1"
@@ -23,17 +22,16 @@ extends damageable
 @onready var hurt_2: AudioStreamPlayer3D = $"Hurt 2"
 @onready var dying: AudioStreamPlayer3D = $Die
 
-const ZOMBIE_RAGDOLL = preload("res://instantiable/zombie_ragdoll.tscn")
-var rng = RandomNumberGenerator.new()
+const ZOMBIE_RAGDOLL := preload("res://instantiable/zombie_ragdoll.tscn")
+var rng := RandomNumberGenerator.new()
 
 var state_machine
 var player_is_in_range: bool
 var ragdoll_started := false 
 var is_dead := false
-var knockback_velocity := Vector3.ZERO
 var is_alive: bool
 var is_playing_sound := false
-var prev_health
+var prev_health: int
 var sound_timer: float
 
 func _ready() -> void:
@@ -56,7 +54,7 @@ func _process(delta: float) -> void:
 		if !ragdoll_started:
 			ragdoll_started = true
 			die()
-	if is_dead: return
+			return
 	
 	animation()
 	
@@ -189,3 +187,9 @@ func _on_idle_2_finished() -> void:
 
 func _on_idle_1_finished() -> void:
 	is_playing_sound = false
+
+func _on_visible_on_screen_notifier_3d_screen_entered() -> void:
+	visible = true
+
+func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
+	visible = false
