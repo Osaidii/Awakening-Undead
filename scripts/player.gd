@@ -52,7 +52,6 @@ extends CharacterBody3D
 const AK_47 := preload("res://weapon_resource/ak47.tres")
 const AUG := preload("res://weapon_resource/aug.tres")
 const FAMAS := preload("res://weapon_resource/famas.tres")
-const FIVE_SEVEN := preload("res://weapon_resource/five seven.tres")
 const GLOCK_18 := preload("res://weapon_resource/glock_18.tres")
 const M_4A_1 := preload("res://weapon_resource/m4a1.tres")
 const MAC_10 := preload("res://weapon_resource/mac10.tres")
@@ -83,7 +82,7 @@ var shader_material := ShaderMaterial.new()
 func _ready() -> void:
 	death_wait.start()
 	current_health = HEALTH
-	Variables.player_hit
+	Variables.player_hit = false
 	middle.position = Vector2(0, 0)
 	middle.visible = true
 	shader_material.shader = preload("res://scripts/vhs.gdshader")
@@ -145,6 +144,8 @@ func _physics_process(delta: float) -> void:
 	#	head.rotation = Vector3(0, 0 ,0)
 	#	camera.rotation = Vector3(0, 0 ,0)
 	#	gameplay()
+	
+	$"../Label".text = str(Engine.get_frames_per_second())
 	
 	if can_control:
 		Variables.can_control = true
@@ -351,7 +352,7 @@ func take_damage(damage) -> void:
 	await get_tree().create_timer(0.5).timeout
 	while health_underlay.value > health.value:
 		health_underlay.value -= 1
-		await get_tree().create_timer(0.01).timeout
+		await get_tree().process_frame
 
 func _on_stamina_regen_wait_timeout() -> void:
 	is_regening = true
@@ -384,10 +385,10 @@ func wave_manager(zombies, z_health, wait, atp) -> void:
 			while !point.can_spawn:
 				point = spawn_points.get_child(randi_range(0, spawn_points.get_child_count() - 1))
 			point.spawn_zombie()
-		if Variables.zombies_alive > atp -1:
+		if Variables.zombies_alive > atp - 1:
 			await get_tree().process_frame
 	await get_tree().create_timer(5).timeout
-	while Variables.zombies_alive > 0 and !is_dead:
+	while Variables.zombies_alive > 1 and !is_dead:
 		if not is_instance_valid(self): return
 		await get_tree().process_frame
 
@@ -402,50 +403,46 @@ func gameplay() -> void:
 	if not is_instance_valid(self): return
 	await get_tree().create_timer(5).timeout
 	await wave_manager(8, 15, 2.8, 3)
-	weapons.weapon = FIVE_SEVEN
-	weapons.load_weapon()
-	await get_tree().create_timer(10).timeout
-	await wave_manager(16, 17, 2.6, 6)
 	weapons.weapon = TEC_9
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(24, 19, 2.4, 8)
+	await wave_manager(16, 17, 2.6, 6)
 	weapons.weapon = MAC_10
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(32, 21, 2.2, 10)
+	await wave_manager(24, 19, 2.4, 8)
 	weapons.weapon = UMP_45
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(35, 23, 2.0, 12)
+	await wave_manager(32, 21, 2.2, 10)
 	weapons.weapon = MP_5
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(40, 25, 1.8, 12)
+	await wave_manager(35, 23, 2.0, 12)
 	weapons.weapon = P_90
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(50, 27, 1.6, 15)
+	await wave_manager(40, 25, 1.8, 12)
 	weapons.weapon = FAMAS
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(55, 29, 1.4, 15)
+	await wave_manager(50, 27, 1.6, 15)
 	weapons.weapon = AK_47
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(60, 31, 1.2, 16)
+	await wave_manager(55, 29, 1.4, 15)
 	weapons.weapon = AUG
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(65, 33, 1.0, 17)
+	await wave_manager(60, 31, 1.2, 16)
 	weapons.weapon = SCAR_H
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(70, 35, 0.75, 18)
+	await wave_manager(65, 33, 1.0, 17)
 	weapons.weapon = M_4A_1
 	weapons.load_weapon()
 	await get_tree().create_timer(10).timeout
-	await wave_manager(75, 37, 0.5, 20) 
+	await wave_manager(70, 35, 0.75, 18)
 	await get_tree().create_timer(2).timeout
 	can_control = false
 	ending() 

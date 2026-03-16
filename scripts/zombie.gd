@@ -120,6 +120,7 @@ func die() -> void:
 	armature.visible = false
 	eye_1.visible = false
 	eye_2.visible = false
+	print("here1")
 	var ragdoll = ZOMBIE_RAGDOLL.instantiate()
 	ragdoll.global_transform = global_transform
 	ragdoll.rotation = global_rotation
@@ -133,6 +134,7 @@ func die() -> void:
 	ragdoll_anim.play("dissolve")
 	await ragdoll_anim.animation_finished
 	ragdoll.queue_free()
+	print("here2")
 
 func _on_player_body_entered(body: Node3D) -> void:
 	if is_dead: return
@@ -187,9 +189,3 @@ func _on_idle_2_finished() -> void:
 
 func _on_idle_1_finished() -> void:
 	is_playing_sound = false
-
-func _on_visible_on_screen_notifier_3d_screen_entered() -> void:
-	visible = true
-
-func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
-	visible = false

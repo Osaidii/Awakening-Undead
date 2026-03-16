@@ -80,39 +80,46 @@ stream = ExtResource("5_0ccn8")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
+bus = &"Guns"
 
 [node name="Tec9 Mac10" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_acacc")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
+bus = &"Guns"
 
 [node name="Famas AUG" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("7_3f17w")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
+bus = &"Guns"
 
 [node name="AK47" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_tigg3")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
+bus = &"Guns"
 
 [node name="Scar H M4A1" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("9_grcyh")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
+bus = &"Guns"
 
 [node name="UMP 45 P90" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_grcyh")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
+bus = &"Guns"
 
 [node name="MP 5" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("11_8vkva")
 attenuation_model = 2
 volume_db = -80.0
 max_db = -10.0
+bus = &"Guns"

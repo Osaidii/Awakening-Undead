@@ -121,7 +121,3 @@ theme_override_font_sizes/font_size = 40
 text = "Press H to Open"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0137447, 0)
-aabb = AABB(-0.121928, -0.0843479, -0.068759, 0.243855, 0.168696, 0.137518)

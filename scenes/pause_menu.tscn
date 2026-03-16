@@ -125,12 +125,12 @@ offset_bottom = 40.0
 
 [node name="Rib" type="TextureRect" parent="Pause Menu/Design"]
 layout_mode = 0
-offset_left = 860.0
-offset_top = -4.0
-offset_right = 2252.0
-offset_bottom = 1868.0
-rotation = 0.488781
-scale = Vector2(0.469955, 0.469955)
+offset_left = 799.0
+offset_top = -124.0
+offset_right = 2191.0
+offset_bottom = 1748.0
+rotation = 0.391585
+scale = Vector2(0.5893, 0.5893)
 texture = ExtResource("3_knqa7")
 
 [node name="Stomach" type="TextureRect" parent="Pause Menu/Design"]
@@ -171,6 +171,7 @@ offset_bottom = 40.0
 
 [node name="Resume" type="TextureButton" parent="Pause Menu/Control"]
 z_index = 1
+layout_mode = 0
 offset_left = 762.0
 offset_top = 351.0
 offset_right = 1402.0
@@ -181,6 +182,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
 
 [node name="Label" type="Label" parent="Pause Menu/Control/Resume"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = -13.3552
 offset_right = 529.0
@@ -196,6 +198,7 @@ vertical_alignment = 1
 
 [node name="Main Menu" type="TextureButton" parent="Pause Menu/Control"]
 z_index = 1
+layout_mode = 0
 offset_left = 762.0
 offset_top = 460.5
 offset_right = 1402.0
@@ -206,6 +209,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
 
 [node name="Label" type="Label" parent="Pause Menu/Control/Main Menu"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = -13.3552
 offset_right = 529.0
@@ -221,6 +225,7 @@ vertical_alignment = 1
 
 [node name="Settings" type="TextureButton" parent="Pause Menu/Control"]
 z_index = 1
+layout_mode = 0
 offset_left = 762.0
 offset_top = 572.0
 offset_right = 1402.0
@@ -231,6 +236,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
 
 [node name="Label" type="Label" parent="Pause Menu/Control/Settings"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = -13.3552
 offset_right = 529.0
@@ -246,6 +252,7 @@ vertical_alignment = 1
 
 [node name="Quit" type="TextureButton" parent="Pause Menu/Control"]
 z_index = 1
+layout_mode = 0
 offset_left = 762.0
 offset_top = 681.0
 offset_right = 1402.0
@@ -256,6 +263,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("2_7l7mv")
 
 [node name="Label" type="Label" parent="Pause Menu/Control/Quit"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = -13.3552
 offset_right = 529.0
@@ -270,6 +278,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="Pause Menu/Control/Resume" to="Pause Menu" method="_on_resume_pressed"]
-[connection signal="pressed" from="Pause Menu/Control/Main Menu" to="Pause Menu" method="_on_restart_pressed"]
 [connection signal="pressed" from="Pause Menu/Control/Main Menu" to="Pause Menu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Pause Menu/Control/Main Menu" to="Pause Menu" method="_on_restart_pressed"]
 [connection signal="pressed" from="Pause Menu/Control/Quit" to="Pause Menu" method="_on_quit_pressed"]

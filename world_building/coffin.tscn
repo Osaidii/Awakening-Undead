@@ -1,6 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://bf0qjdylr755x"]
+[gd_scene load_steps=12 format=4 uid="uid://bf0qjdylr755x"]
 
 [ext_resource type="Texture2D" uid="uid://d0yvpl7u4akh2" path="res://assets/coffin_Material_baseColor.png" id="1_tjbrr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjbrr"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.596078)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wmh5j"]
 resource_name = "Material.001"
@@ -61,6 +65,7 @@ points = PackedVector3Array(-257.663, 165.613, -82.8647, 73.6653, 183.587, 405.0
 
 [node name="coffin" type="MeshInstance3D"]
 transform = Transform3D(0.00370446, 0, 0, 0, 0.00370446, 0, 0, 0, 0.00370446, 0, 0, -5.86368)
+material_overlay = SubResource("StandardMaterial3D_tjbrr")
 mesh = SubResource("ArrayMesh_5f2i4")
 skeleton = NodePath("")
 
@@ -83,7 +88,3 @@ shape = SubResource("ConvexPolygonShape3D_wuhkw")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_lotkt")
-
-[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.5475, 81.3704, -531.115)
-aabb = AABB(-454.32, -93.2274, -255.232, 988.467, 269.292, 1391.21)

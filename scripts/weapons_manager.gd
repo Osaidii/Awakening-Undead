@@ -9,6 +9,8 @@ signal weapon_fired
 		weapon = value
 		if Engine.is_editor_hint():
 			load_weapon()
+	get:
+		return weapon
 @export var sway_speed := 1.2
 
 @onready var player: CharacterBody3D = $"../../../../.."
@@ -26,7 +28,6 @@ signal weapon_fired
 const AK_47 := preload("res://weapon_resource/ak47.tres")
 const AUG := preload("res://weapon_resource/aug.tres")
 const FAMAS := preload("res://weapon_resource/famas.tres")
-const FIVE_SEVEN := preload("res://weapon_resource/five seven.tres")
 const GLOCK_18 := preload("res://weapon_resource/glock_18.tres")
 const M_4A_1 := preload("res://weapon_resource/m4a1.tres")
 const MAC_10 := preload("res://weapon_resource/mac10.tres")
@@ -54,6 +55,7 @@ const BLOOD_SPLATER := preload("res://instantiable/blood_splater.tscn")
 
 func _ready() -> void:
 	await owner.ready
+	sway_noise = FastNoiseLite.new()
 	load_weapon()
 	magazine_count = weapon.magazine_size
 	total_ammo_count = weapon.start_ammo - magazine_count
@@ -133,9 +135,8 @@ func bullet_damage(pos: Vector3, normal: Vector3) -> void:
 	instance.global_position = pos
 	instance.look_at(pos + normal, Vector3.UP)
 	instance.rotate_object_local(Vector3.RIGHT, deg_to_rad(90))
-	await get_tree().create_timer(3).timeout
 	var fade = get_tree().create_tween()
-	fade.tween_property(instance, "modulate:a", 0, 1)
+	fade.tween_property(instance, "modulate:a", 0, 1).set_delay(3)
 	await get_tree().create_timer(1.5).timeout
 	instance.queue_free()
 
@@ -153,7 +154,7 @@ func shoot() -> void:
 		query.collide_with_areas = true
 		query.collision_mask = 2
 		query.exclude = [player]
-		if weapon == GLOCK_18 or weapon == FIVE_SEVEN:
+		if weapon == GLOCK_18:
 			glock_five_seven.play()
 		if weapon == TEC_9 or weapon == MAC_10:
 			tec_9_mac_10.play()
@@ -180,6 +181,7 @@ func damage_target(result: Dictionary) -> void:
 	var collider = target
 	while target and not (target is damageable):
 		target = target.get_parent()
+	print("here3")
 	if target is damageable:
 		if !target.is_playing_sound and target.current_health > weapon.single_damage:
 			target.play_sound("hurt")
@@ -188,12 +190,14 @@ func damage_target(result: Dictionary) -> void:
 			target.take_damage(weapon.single_damage * 2)
 		else:
 			target.take_damage(weapon.single_damage)
+		print("here4")
 		var area = collider.get_parent()
 		var bone = area.get_parent()
 		var skeleton = bone.get_parent()
 		var armature = skeleton.get_parent()
 		var zombie = armature.get_parent()
 		if zombie.is_alive:
+			print("here5")
 			var blood_effect := BLOOD_SPLATER.instantiate()
 			get_tree().root.add_child(blood_effect)
 			blood_effect.global_position = result.position
