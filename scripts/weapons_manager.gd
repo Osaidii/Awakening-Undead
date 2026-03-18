@@ -24,6 +24,7 @@ signal weapon_fired
 @onready var ump_45_p_90: AudioStreamPlayer3D = $"UMP 45 P90"
 @onready var mp_5: AudioStreamPlayer3D = $"MP 5"
 @onready var crosshair_container: CenterContainer = $Player/UI/CrosshairContainer
+@onready var shooting_tutorial: Label = $"Player/UI/Shooting Tutorial"
 
 const AK_47 := preload("res://weapon_resource/ak47.tres")
 const AUG := preload("res://weapon_resource/aug.tres")
@@ -79,6 +80,12 @@ func _physics_process(_delta: float) -> void:
 		else:
 			if Input.is_action_pressed("attack"):
 				shoot()
+	
+	# Tutorials
+	if Variables.shoot_tut:
+		Variables.shoot_tut = false
+		await get_tree().create_timer(1.5).timeout
+		shooting_tutorial.visible = true
 
 func load_weapon() -> void:
 	self.mesh = weapon.mesh_scene
@@ -142,6 +149,9 @@ func bullet_damage(pos: Vector3, normal: Vector3) -> void:
 
 func shoot() -> void:
 	if is_reloading: return
+	if shooting_tutorial.visible == true:
+		shooting_tutorial.visible = false
+		Variables.tut_completed = true
 	if magazine_count > 0:
 		weapon_fired.emit()
 		var camera = $"../.."

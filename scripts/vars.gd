@@ -13,3 +13,7 @@ var reload: bool
 var cutscene_played := false
 var can_control: bool
 var once_death: bool
+var jump_tut := false
+var shoot_tut := false
+var tut_needed := true
+var tut_completed := false

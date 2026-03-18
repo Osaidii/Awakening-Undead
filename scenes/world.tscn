@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b4aremvvkmjl8"]
+[gd_scene load_steps=49 format=3 uid="uid://b4aremvvkmjl8"]
 
 [ext_resource type="Texture2D" uid="uid://bs41hi2v4osue" path="res://assets/ground texture.jpg" id="1_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dkrvx17yiafo1" path="res://scenes/player.tscn" id="2_4wyf3"]
@@ -48,13 +48,6 @@ agent_max_slope = 75.0
 albedo_texture = ExtResource("1_4wyf3")
 uv1_scale = Vector3(40, 40, 40)
 uv1_triplanar = true
-
-[sub_resource type="GDScript" id="GDScript_navra"]
-script/source = "extends Node3D
-
-func _process(delta: float) -> void:
-	print(\"Running process\")
-"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oo54l"]
 size = Vector3(58.2697, 6.70752, 0.0512695)
@@ -843,14 +836,11 @@ tracks/8/path = NodePath(".")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(18, 28),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(18),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"intro_method"
-}, {
-"args": [],
-"method": &"gameplay"
 }]
 }
 tracks/9/type = "value"
@@ -1008,12 +998,9 @@ tracks/7/path = NodePath(".")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.0333333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"gameplay"
-}, {
 "args": [],
 "method": &"intro_method"
 }]
@@ -2026,7 +2013,6 @@ transform = Transform3D(2.80306, -2.09568, -0.0313594, -0.0155301, 0.0315986, -3
 
 [node name="church" parent="Navigation/Church" instance=ExtResource("21_7iits")]
 transform = Transform3D(0.354258, 0, -1.27741, 0, 1.32563, 0, 1.27741, 0, 0.354258, -58.6783, 0.00499678, 35.5369)
-script = SubResource("GDScript_navra")
 
 [node name="Coffin" type="Node3D" parent="Navigation"]
 
@@ -2113,8 +2099,21 @@ transform = Transform3D(-1.8604, 0, -4.641, 0, 5, 0, 4.641, 0, -1.8604, -67.2563
 [node name="Player" parent="." instance=ExtResource("2_4wyf3")]
 unique_name_in_owner = true
 transform = Transform3D(-3.61999e-06, 0, 1, 0, 1, 0, -1, 0, -3.61999e-06, 8.108, -5.086, 5.8)
+HEALTH = 100
+STAMINA = 500
+WALK_SPEED = 4.0
 RUN_SPEED = 5.5
+JUMP_VELOCITY = 5
 SENSITIVITY = 0.005
+BOB_FREQUENCY = 2
+BOB_DISTANCE = 0.05
+FOV = 75.0
+INTERACT_DISTANCE = 2.0
+SIDEWAYS_TILT = 1
+FALL_TILT_TIME = 0.3
+FALL_THRESHOLD = -5.5
+WEAPON_BOB_H = 1
+WEAPON_BOB_V = 4
 can_control = true
 
 [node name="Weapons" parent="Player/Head/Recoil/Camera/RecoilPosition" index="0"]
@@ -2427,6 +2426,8 @@ bake_mask = 4294967293
 [node name="Label" type="Label" parent="."]
 offset_right = 283.0
 offset_bottom = 188.0
+
+[connection signal="animation_finished" from="Cutscenes" to="Player" method="_on_cutscenes_animation_finished"]
 
 [editable path="Navigation/Wall/Gate"]
 [editable path="Navigation/Boxes/Ammo"]

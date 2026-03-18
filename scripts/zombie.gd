@@ -130,10 +130,9 @@ func die() -> void:
 		ragdoll_skeleton.set_bone_global_pose(i, pose)
 	get_parent().add_child(ragdoll)
 	var ragdoll_anim: AnimationPlayer = ragdoll.get_node("Animations")
-	await get_tree().create_timer(3.5).timeout
 	ragdoll_anim.play("dissolve")
-	await ragdoll_anim.animation_finished
-	ragdoll.queue_free()
+	var tween = create_tween()
+	tween.tween_callback(Callable(ragdoll, "queue_free")).set_delay(3.5)
 	print("here2")
 
 func _on_player_body_entered(body: Node3D) -> void:

@@ -8,6 +8,7 @@ extends Control
 @onready var music: AudioStreamPlayer3D = $Music
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	await get_tree().create_timer(1).timeout
 	black.visible = true
 	animation.play("transition")

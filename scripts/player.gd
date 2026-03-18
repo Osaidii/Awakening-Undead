@@ -48,6 +48,8 @@ extends CharacterBody3D
 @onready var death_wait: Timer = $"Death wait"
 @onready var death_shader: ColorRect = $"HUD/Death Shader"
 @onready var stair_trigger: Node3D = $"Head/Recoil/Camera/Stair Trigger"
+@onready var movement_tutorial: Label = $"UI/Movement Tutorial"
+@onready var jumping_tutorial: Label = $"UI/Jupming Tutorial"
 
 const AK_47 := preload("res://weapon_resource/ak47.tres")
 const AUG := preload("res://weapon_resource/aug.tres")
@@ -147,6 +149,21 @@ func _physics_process(delta: float) -> void:
 	
 	$"../Label".text = str(Engine.get_frames_per_second())
 	
+	# Tutorial
+	if Variables.tut_needed:
+		Variables.tut_needed = false
+		await get_tree().create_timer(0.5).timeout
+		movement_tutorial.visible = true
+	
+	if Variables.jump_tut:
+		Variables.jump_tut = false
+		await get_tree().create_timer(1).timeout
+		jumping_tutorial.visible = true
+	
+	if Variables.tut_completed:
+		Variables.tut_completed = false
+		gameplay()
+	
 	if can_control:
 		Variables.can_control = true
 	else:
@@ -166,6 +183,9 @@ func _physics_process(delta: float) -> void:
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, -input_dir.y)).normalized()
 	if is_on_floor():
 		if direction:
+			if movement_tutorial.visible == true:
+				movement_tutorial.visible = false
+				Variables.jump_tut = true
 			if stair_trigger.jump == true:
 				velocity.y += 3
 				stair_trigger.jump = false
@@ -260,6 +280,9 @@ func head_bob(delta) -> void:
 func jump() -> void:
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	if jumping_tutorial.visible == true:
+		jumping_tutorial.visible = false
+		Variables.shoot_tut = true
 
 func interact() -> void:
 	if interact_cast_result and interact_cast_result.has_user_signal("interacting"):
@@ -350,9 +373,9 @@ func take_damage(damage) -> void:
 	current_health = clamp(current_health, 0, HEALTH)
 	health.value = current_health
 	await get_tree().create_timer(0.5).timeout
-	while health_underlay.value > health.value:
-		health_underlay.value -= 1
-		await get_tree().process_frame
+	await get_tree().create_timer(0.5).timeout
+	var tween = create_tween()
+	tween.tween_property(health_underlay, "value", health.value, 0.5)
 
 func _on_stamina_regen_wait_timeout() -> void:
 	is_regening = true
@@ -400,6 +423,7 @@ func ending() -> void:
 	get_tree().change_scene_to_file("res://scenes/main menu.tscn")
 
 func gameplay() -> void:
+	await get_tree().create_timer(1).timeout
 	if not is_instance_valid(self): return
 	await get_tree().create_timer(5).timeout
 	await wave_manager(8, 15, 2.8, 3)
@@ -469,3 +493,10 @@ func get_ammo() -> void:
 	if Variables.give_ammo:
 		weapons.total_ammo_count += 50
 		Variables.give_ammo = false
+
+func _on_cutscenes_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "intro":
+		Variables.tut_needed = true
+	if anim_name == "restart":
+		Variables.tut_needed = false
+		gameplay()

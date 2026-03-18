@@ -129,6 +129,22 @@ bg_color = Color(0, 0.772549, 1, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
+HEALTH = null
+STAMINA = null
+WALK_SPEED = null
+RUN_SPEED = null
+JUMP_VELOCITY = null
+SENSITIVITY = null
+BOB_FREQUENCY = null
+BOB_DISTANCE = null
+FOV = null
+INTERACT_DISTANCE = null
+SIDEWAYS_TILT = null
+FALL_TILT_TIME = null
+FALL_THRESHOLD = null
+WEAPON_BOB_H = null
+WEAPON_BOB_V = null
+can_control = null
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3vyb7")
@@ -239,6 +255,72 @@ theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("6_tuyoq")
 theme_override_font_sizes/font_size = 50
 text = "Press H to Open"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Movement Tutorial" type="Label" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -553.5
+offset_top = 440.0
+offset_right = 553.5
+offset_bottom = 551.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_tuyoq")
+theme_override_font_sizes/font_size = 50
+text = "Press WASD to Move"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Jumping Tutorial" type="Label" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -553.5
+offset_top = 440.0
+offset_right = 553.5
+offset_bottom = 551.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_tuyoq")
+theme_override_font_sizes/font_size = 50
+text = "Press SPACE to Jump"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shooting Tutorial" type="Label" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -553.5
+offset_top = 440.0
+offset_right = 553.5
+offset_bottom = 551.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_tuyoq")
+theme_override_font_sizes/font_size = 50
+text = "Press LMB to Shoot"
 horizontal_alignment = 1
 vertical_alignment = 1
 
