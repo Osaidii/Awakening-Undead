@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_b8ror")
 weapon_name = "M4A1"
-tier_number = 11
+tier_number = 10
 bullet_delay = 0.086
 single_damage = 3.61
 shoot_range = 70

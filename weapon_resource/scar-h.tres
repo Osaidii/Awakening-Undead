@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_tv0y6")
 weapon_name = "Scar-H"
-tier_number = 10
+tier_number = 9
 bullet_delay = 0.12
 single_damage = 4.2
 shoot_range = 70

@@ -689,7 +689,7 @@ tracks/19/path = NodePath("../Credits/Credits:position")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0, 11.9667, 35),
+"times": PackedFloat32Array(0, 11.9667, 33.8333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 1100), Vector2(0, 1100), Vector2(0, -2800)]
@@ -701,7 +701,7 @@ tracks/20/path = NodePath("%Player/../Credits/Name:position")
 tracks/20/interp = 2
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0, 38.5666, 40.1636),
+"times": PackedFloat32Array(0, 35.8, 37.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 600), Vector2(0, 600), Vector2(0, 0)]
@@ -2243,7 +2243,7 @@ transform = Transform3D(-0.0226621, 0.460505, -0.887367, 0.513291, 0.767037, 0.3
 transform = Transform3D(0.86488, 0, 0.501979, 0, 1, 0, -0.501979, 0, 0.86488, -43.4357, -6.08771, 7.61641)
 
 [node name="Spawn Point11" parent="Spawn Points" instance=ExtResource("22_oo54l")]
-transform = Transform3D(0.944112, 0, 0.329625, 0, 1, 0, -0.329625, 0, 0.944112, -29.9532, -5.50642, 10.2312)
+transform = Transform3D(0.951245, 0, 0.308436, 0, 1, 0, -0.308436, 0, 0.951245, -31.2266, -5.50642, 10.5343)
 
 [node name="Spawn Point2" parent="Spawn Points" instance=ExtResource("22_oo54l")]
 transform = Transform3D(0.995295, 0, -0.0968881, 0, 1, 0, 0.0968881, 0, 0.995295, 0.81126, -6.08771, -0.781503)
@@ -2303,7 +2303,7 @@ UI: maxparata.itch.io
 Road: monogon.itch.io
 Graveyard: tekilor.itch.io
 Gun Hole: opengameart.org/users/musdasch
-Coffin: https://sketchfab.com/Rysky
+Coffin: sketchfab.com/Rysky
 Font: managore.itch.io
 Ground: freepik.com/author/0melapics
 Death Shader: https://samgrady.itch.io/
@@ -2311,12 +2311,6 @@ Ambient Sound: Kenny from HackClub
 Music 1: makotohiramatsu.itch.io
 Zombie Sounds: youtube.com/@soundblockz
 Gun Sound 1: youtube.com/@user-us1-sfx
-Gun Sound 2: 
-Gun Sound 3: 
-Gun Sound 4: 
-Gun Sound 5: 
-Gun Sound 6: 
-Gun Sound 7: 
 Gate Sound: pixabay.com
 
 

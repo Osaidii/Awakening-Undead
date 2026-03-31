@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_3w02q")
 weapon_name = "FAMAS"
-tier_number = 7
+tier_number = 6
 bullet_delay = 0.1
 single_damage = 2.4
 shoot_range = 60

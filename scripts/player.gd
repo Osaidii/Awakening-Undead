@@ -58,7 +58,6 @@ const FAMAS := preload("res://weapon_resource/famas.tres")
 const GLOCK_18 := preload("res://weapon_resource/glock_18.tres")
 const M_4A_1 := preload("res://weapon_resource/m4a1.tres")
 const MAC_10 := preload("res://weapon_resource/mac10.tres")
-const MP_5 := preload("res://weapon_resource/mp5.tres")
 const P_90 := preload("res://weapon_resource/p90.tres")
 const SCAR_H := preload("res://weapon_resource/scar-h.tres")
 const TEC_9 := preload("res://weapon_resource/tec 9.tres")
@@ -85,20 +84,22 @@ var given_ammo := false
 var shader_material := ShaderMaterial.new()
 
 var waves = [
-	{"zombies":8, "health":15, "wait":2.8, "atp":6, "weapon":GLOCK_18},
-	{"zombies":12, "health":17, "wait":2.6, "atp":8, "weapon":TEC_9},
-	{"zombies":14, "health":19, "wait":2.4, "atp":10, "weapon":MAC_10},
-	{"zombies":18, "health":21, "wait":2.2, "atp":12, "weapon":UMP_45},
-	{"zombies":24, "health":23, "wait":2.0, "atp":14, "weapon":MP_5},
-	{"zombies":26, "health":25, "wait":1.8, "atp":14, "weapon":P_90},
-	{"zombies":32, "health":27, "wait":1.6, "atp":14, "weapon":FAMAS},
-	{"zombies":34, "health":29, "wait":1.4, "atp":14, "weapon":AK_47},
-	{"zombies":36, "health":31, "wait":1.2, "atp":16, "weapon":AUG},
-	{"zombies":40, "health":33, "wait":1.0, "atp":17, "weapon":SCAR_H},
-	{"zombies":40, "health":35, "wait":0.75, "atp":18, "weapon":M_4A_1}]
+	{"zombies":6, "health":15, "wait":2.8, "atp":6, "weapon":GLOCK_18},
+	{"zombies":8, "health":17, "wait":2.6, "atp":8, "weapon":TEC_9},
+	{"zombies":10, "health":19, "wait":2.4, "atp":10, "weapon":MAC_10},
+	{"zombies":12, "health":21, "wait":2.2, "atp":12, "weapon":UMP_45},
+	{"zombies":14, "health":23, "wait":2.0, "atp":14, "weapon":P_90},
+	{"zombies":16, "health":25, "wait":1.8, "atp":14, "weapon":FAMAS},
+	{"zombies":18, "health":27, "wait":1.6, "atp":14, "weapon":AK_47},
+	{"zombies":20, "health":29, "wait":1.4, "atp":14, "weapon":AUG},
+	{"zombies":22, "health":31, "wait":1.2, "atp":16, "weapon":SCAR_H},
+	{"zombies":25, "health":33, "wait":1.0, "atp":17, "weapon":M_4A_1}]
 
 func _ready() -> void:
 	death_wait.start()
+	health.max_value = HEALTH
+	health.value = HEALTH
+	health_underlay.max_value = HEALTH
 	current_health = HEALTH
 	Variables.player_hit = false
 	middle.position = Vector2(0, 0)
@@ -396,7 +397,6 @@ func remove_velo_aftet_cut() -> void:
 
 func wave_manager(zombies, z_health, wait, atp) -> void:
 	Variables.zombies_now = atp
-	print(Variables.zombies_alive)
 	if not is_instance_valid(self): return
 	Variables.zombie_health = z_health
 	for i in range(zombies):
@@ -412,17 +412,14 @@ func wave_manager(zombies, z_health, wait, atp) -> void:
 		if point.can_spawn:
 			point.spawn_zombie()
 			Variables.zombies_alive += 1
-			print("added: ", Variables.zombies_alive)
 		else:
 			point.spawn_second_zombie()
 			Variables.zombies_alive += 1
-			print("added: ", Variables.zombies_alive)
 		while Variables.zombies_alive >= atp and !is_dead:
 			await get_tree().create_timer(0.2).timeout
 	while Variables.zombies_alive > 0 and !is_dead:
 		await get_tree().create_timer(0.2).timeout
 	Variables.wave_num += 1
-	print("ended")
 
 func ending() -> void:
 	if not is_instance_valid(self): return
@@ -463,13 +460,15 @@ func get_ammo() -> void:
 			ammo_boxes(false)
 
 func reset_gameplay_vars():
+	Variables.cutscene_played = false
+	Variables.wave_num = 0
 	Variables.zombies_alive = 0
 	Variables.player_hit = false
 	Variables.give_ammo = false
 	Variables.once_death = false
 	is_dead = false
 
-func start_gameplay():
+func start_gameplay():	
 	Variables.cutscene_played = true
 	if gameplay_running: return
 	gameplay_running = true

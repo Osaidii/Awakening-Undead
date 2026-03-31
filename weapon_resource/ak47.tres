@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_ngwdj")
 weapon_name = "AK47"
-tier_number = 8
+tier_number = 7
 bullet_delay = 0.1
 single_damage = 2.7
 shoot_range = 65

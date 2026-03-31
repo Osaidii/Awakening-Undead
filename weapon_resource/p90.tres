@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_d3o6h")
 weapon_name = "P90"
-tier_number = 6
+tier_number = 5
 bullet_delay = 0.08
 single_damage = 1.24
 shoot_range = 50

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_qyp3d")
 weapon_name = "aug"
-tier_number = 9
+tier_number = 8
 bullet_delay = 0.1
 single_damage = 2.48
 shoot_range = 70
