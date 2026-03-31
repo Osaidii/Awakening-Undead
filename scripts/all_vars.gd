@@ -14,3 +14,4 @@ var can_control: bool
 var once_death: bool
 var zombies_now: bool
 var spawn_boxes: bool
+var wave_num := 0

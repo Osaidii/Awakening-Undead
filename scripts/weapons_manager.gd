@@ -144,7 +144,7 @@ func bullet_damage(pos: Vector3, normal: Vector3) -> void:
 	instance.queue_free()
 
 func shoot() -> void:
-	if is_reloading: return
+	if is_reloading or !Variables.can_control: return
 	can_shoot = false
 	if magazine_count > 0:
 		weapon_fired.emit()

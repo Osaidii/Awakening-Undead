@@ -38,8 +38,9 @@ func _on_continue_pressed() -> void:
 		music.volume_db -= 9
 
 func _on_settings_pressed() -> void:
-	mouse_stopper.visible = false
-	animation.play_backwards("setting pop up")
-	await get_tree().create_timer(0.1).timeout
-	settings_pop_up.visible = false
-	mouse_stopper.visible = false
+	pass
+	#mouse_stopper.visible = false
+	#animation.play_backwards("setting pop up")
+	#await get_tree().create_timer(0.1).timeout
+	#settings_pop_up.visible = false
+	#mouse_stopper.visible = false

@@ -2106,7 +2106,7 @@ transform = Transform3D(-1.8604, 0, -4.641, 0, 5, 0, 4.641, 0, -1.8604, -67.2563
 [node name="Player" parent="." instance=ExtResource("2_4wyf3")]
 unique_name_in_owner = true
 transform = Transform3D(-3.61999e-06, 0, 1, 0, 1, 0, -1, 0, -3.61999e-06, 8.108, -5.086, 5.8)
-HEALTH = 500
+HEALTH = 200
 RUN_SPEED = 5.5
 SENSITIVITY = 0.005
 can_control = true
@@ -2420,6 +2420,7 @@ autoplay = true
 bus = &"Music"
 
 [node name="OccluderInstance3D" type="OccluderInstance3D" parent="."]
+visible = false
 occluder = ExtResource("31_luhhm")
 bake_mask = 4294967293
 
