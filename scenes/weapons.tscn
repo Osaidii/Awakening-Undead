@@ -44,7 +44,7 @@ material = SubResource("StandardMaterial3D_0ccn8")
 size = Vector2(0.05, 0.05)
 
 [node name="Weapons" type="MeshInstance3D"]
-transform = Transform3D(-0.00492401, -0.0468484, 0.99889, 0.104412, 0.993418, 0.0471065, -0.994522, 0.104528, -4.36629e-08, 0.11, -6.11486, -0.149)
+transform = Transform3D(-0.00492401, -0.0468484, 0.99889, 0.104412, 0.993418, 0.0471065, -0.994522, 0.104528, -4.36629e-08, 0.11, -6.11224, -0.149)
 mesh = ExtResource("1_pe4jq")
 script = ExtResource("1_rvi01")
 weapon = ExtResource("3_0ccn8")

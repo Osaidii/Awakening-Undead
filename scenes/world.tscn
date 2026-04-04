@@ -1085,10 +1085,12 @@ sky_material = SubResource("ProceduralSkyMaterial_ctatt")
 [sub_resource type="Environment" id="Environment_munwf"]
 background_mode = 2
 sky = SubResource("Sky_ts3gi")
+ambient_light_color = Color(0.273873, 0.273873, 0.273873, 1)
 ambient_light_sky_contribution = 0.77
-ambient_light_energy = 0.0
+ambient_light_energy = 1.18
 reflected_light_source = 1
 tonemap_mode = 4
+tonemap_exposure = 1.1
 ssil_enabled = true
 sdfgi_use_occlusion = true
 glow_enabled = true
