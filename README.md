@@ -17,5 +17,5 @@ Esc – Pause
 
 These are the source files of this game are present too! 
 These files are meant to be used in Godot Engine!  
-There is a plugin called Hackatime that is used by Hack Club! It might transfer hours to my key, please disable it in Project Setting and then Plugins!  
+There is a plugin called Hackatime that is used by Hack Club! It might cause disturbance, please disable it in Project Setting and then Plugins!  
   
